@@ -14,7 +14,7 @@ const UserForm = ({errors, touched, values, handleSubmit, status}) => {
     },[status]);
     return (
       <div className="userForm">
-        {console.log(user)}
+        {console.log(users)}
         <Form>
            
             <Field type="text" name="username" placeholder="Username:" />
@@ -49,7 +49,7 @@ const UserForm = ({errors, touched, values, handleSubmit, status}) => {
   
         handleSubmit(values, {setStatus}){
             console.log('forms submitted, values')
-            handleSubmit(values,{setStatus}){
+
                 axios
                  .post('http://localhost:5000/api/register', values)
                 .then(res =>{
@@ -58,7 +58,7 @@ const UserForm = ({errors, touched, values, handleSubmit, status}) => {
                 .catch(err => console.log(err.response));
             }
         }
-          }) (UserForm);
+          )(UserForm);
       
   
   

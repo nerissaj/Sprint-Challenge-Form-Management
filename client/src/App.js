@@ -1,28 +1,39 @@
-import React, {useState, useEffect} from 'react';
-import Axios from 'axios';
+import React from 'react';
+import Form from './Form';
 
-const [usersdata,setUsersData] = useState();
 
+const userdata=[{
+  "error": "false",
+  "message": "User created successfully",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTYzNDc2NTc0LCJleHAiOjE1NjM0ODAxNzR9.pIkjFgRRbrrg8j38YGiWpMlw0wgTWRfZmIIMAeFLQcw"
+}
+
+];
 
 class App extends React.Component {
   constructor(){
     super();
     this.state={
+      users: userdata,
+    };
+  }
       
-        "error": "false",
-        "message": "User created successfully",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNTYzNDc2NTc0LCJleHAiOjE1NjM0ODAxNzR9.pIkjFgRRbrrg8j38YGiWpMlw0wgTWRfZmIIMAeFLQcw"
-    }
+      
   
 changeUserName = (userName) => {
-this.setState({userName});
+this.setState({users:this.state.users.filter(user =>{
+  return !user.username;
+})
+});
 }
-useEffect(() =>{
-  axios
-  .get('http://localhost:5000/api/restricted/data')
-  .then (res => {setState(res.data)
+fetchUser = () => {
+  fetch(`http://localhost:5000/api/restricted/data`)
+  .then(res => res.json())
+  .then (data => this.setState({user:data}));
 
-  },[usersdata])
+   
+      
+    }
 
       componentDidMount() {
         console.log("First Render (mounting)")
@@ -31,9 +42,9 @@ useEffect(() =>{
     }
     componentDidUpdate(prevProps, prevState){
       console.log(this.state);
-      if(prevState.userName !== this.state.userName){
+      if(prevState.username !== this.state.username){
         this.fetchUser();
-        this.fetchFollowers();
+       
 
       }
     }
@@ -41,8 +52,8 @@ useEffect(() =>{
   render(){
     return(
       <div className="App">
-        {usersdata.map(user =>{
-          return <UsersCard key={this.state.username}user ={this.state.user} />
+        {userdata.map(user => {
+          return <Form key={this.state.username}user = {this.state.username} />
         })}
        
       </div>
