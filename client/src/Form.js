@@ -22,10 +22,10 @@ const UserForm = ({errors, touched, values, handleSubmit, status}) => {
             <Field
               type="password"
               name="password"
-                placeholder="Password:"
+            placeholder="Password:"
             />
            {touched.password && errors.password && <p className="error">{errors.password}</p>}
-          <button>Submit!</button>
+          <button type="submit">Submit!</button>
         </Form>
       </div>
     );
